@@ -11,13 +11,13 @@ sys.path.insert(0, '/Users/corywatson/src/signalfx-python')
 import signalfx
 
 COLORS = [
-    'gray',
-	'blue',
-	'light_blue',
-	'navy',
-	'dark_orange',
-	'orange',
-	'dark_yellow',
+    "gray",
+	"blue",
+	"blue",
+	"navy",
+	"orange",
+	"orange",
+	'yellow',
 	'magenta',
 	'cerise',
 	'pink',
@@ -29,9 +29,9 @@ COLORS = [
 	'aquamarine',
 	'red',
 	'yellow',
-	'vivid_yellow',
-	'light_green',
-	'lime_green'
+	'yellow',
+	'green',
+	'green'
 ]
 
 def do_chart(client, chartId, name):
@@ -41,12 +41,11 @@ def do_chart(client, chartId, name):
         do_time_chart(client, c, name)
     elif c['options']['type'] == 'List':
         do_list_chart(client, c, name)
-    # elif c['options']['type'] == 'TimeSeriesChart':
-    #     print(c)
-    #     do_list_chart(client, c, name)
+    elif c['options']['type'] == 'SingleValue':
+        do_single_value_chart(client, c, name)
     else:
-        print(c['options']['type'])
-        print("TKTK")
+        print("Chart type not implemented")
+        print(chartId)
 
 def resolve_color(index):
     return COLORS[index]
@@ -69,7 +68,6 @@ def do_detector(client, detectorId, name):
 
 def do_time_chart(client, chart, name):
     print(time_chart_template.render(chart))
-    sys.exit(1)
 
 parser = argparse.ArgumentParser()
 

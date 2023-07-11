@@ -1,4 +1,5 @@
-resource "signalfx_single_value_chart" "{{ terraformName }}" {
+## ChartID: signalfx_single_value_chart.{{ id }}.id
+resource "signalfx_single_value_chart" "{{ id }}" {
     name                = "{{ name }}"
     {% if description != "" %}
     description         = "{{ description }}"
@@ -24,15 +25,15 @@ resource "signalfx_single_value_chart" "{{ terraformName }}" {
     {% endfor %}
     ]
     {% endif %}
-    max_precision       = {{ options.maximumPrecision }}
-    {% if options.programOptions and options.programOptions.maxDelay %}
-    max_delay           = {{ options.programOptions.maxDelay }}
+    {% if options.maximumPrecision %}
+    max_precision       = {{ options.maximumPrecision if options.maximumPrecision is not none }}
     {% endif %}
-    is_timestamp_hidden = {{ options.timestampHidden }}
+
+    is_timestamp_hidden = {{ options.timestampHidden|lower }}
     {% if refreshInterval %}
     refresh_interval    = {{ refreshInterval }}
     {% endif %}
-    show_spark_line     = {{ options.showSparkLine }}
+    show_spark_line     = {{ options.showSparkLine|lower }}
     {% if options.unitPrefix %}
     unit_prefix         = "{{ options.unitPrefix }}"
     {% endif %}

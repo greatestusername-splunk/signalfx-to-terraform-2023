@@ -17,9 +17,9 @@ resource "signalfx_detector" "{{ terraformName }}" {
     EOF
 
     {% if visualizationOptions  %}
-    disable_sampling    = {{ visualizationOptions.disableSampling }}
-    show_data_markers   = {{ visualizationOptions.showDataMarkers }}
-    show_event_lines    = {{ visualizationOptions.showEventLines }}
+    disable_sampling    = {{ visualizationOptions.disableSampling|lower }}
+    show_data_markers   = {{ visualizationOptions.showDataMarkers|lower }}
+    show_event_lines    = {{ visualizationOptions.showEventLines|lower }}
     {% if visualizationOptions.time %}
     time_range          = {{ visualizationOptions.time.range }}
     start_time          = {{ visualizationOptions.time.start }}
